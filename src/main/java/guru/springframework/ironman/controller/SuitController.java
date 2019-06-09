@@ -5,6 +5,10 @@ import guru.springframework.ironman.domain.AmmunitionSuit;
 import guru.springframework.ironman.domain.Suit;
 import guru.springframework.ironman.service.AmmunitionSuitService;
 import guru.springframework.ironman.service.SuitService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/suit")
+@Api(value = "Suit Controller Resource", description = "Operation suit : CRUD")
 public class SuitController {
     private final SuitService suitService;
     private final AmmunitionSuitService ammunitionSuitService;
@@ -26,6 +31,13 @@ public class SuitController {
         this.ammunitionSuitService = ammunitionSuitService;
     }
 
+    @ApiOperation(value = "Return all suit")
+    @ApiResponses(
+            value = {
+                    @ApiResponse(code = 200, message = "Success, found all suit"),
+                    @ApiResponse(code = 404, message = "Suit not found")
+            }
+    )
     @RequestMapping(value = "/all", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<List<Suit>> getAllSuits() {
         List<Suit> suits = suitService.findAll();
