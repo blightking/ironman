@@ -3,16 +3,16 @@ package guru.springframework.ironman.domain;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity
+//@Entity
 public class Suit {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String model;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "suit")
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "suit")
 //    @JsonIgnore
     private List<AmmunitionSuit> ammunitionSuitList;
 
@@ -48,7 +48,6 @@ public class Suit {
         return "Suit{" +
                 "id=" + id +
                 ", model='" + model + '\'' +
-                ", ammunitionSuitList=" + ammunitionSuitList +
                 '}';
     }
 }

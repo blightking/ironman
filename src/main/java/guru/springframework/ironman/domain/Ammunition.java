@@ -1,23 +1,20 @@
 package guru.springframework.ironman.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "ammo")
+//@Entity
+//@Table(name = "ammo")
 public class Ammunition {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String name;
     private String description;
     private int count;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ammunition")
-    @JsonIgnore
+//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "ammunition")
+//    @JsonIgnore
     private List<AmmunitionSuit> ammunitionSuitList;
 
     public Ammunition() {
@@ -70,7 +67,6 @@ public class Ammunition {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", count=" + count +
-                ", ammunitionSuitList=" + ammunitionSuitList +
                 '}';
     }
 }

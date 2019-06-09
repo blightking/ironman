@@ -4,20 +4,20 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
-@Entity
+//@Entity
 public class AmmunitionSuit {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+//    @Id
+//    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "suit_id")
+//    @ManyToOne
+//    @JoinColumn(name = "suit_id")
     @JsonIgnore
     private Suit suit;
 
-    @ManyToOne
-    @JoinColumn(name = "ammo_id")
+//    @ManyToOne
+//    @JoinColumn(name = "ammo_id")
     @JsonIgnore
     private Ammunition ammunition;
 
@@ -58,13 +58,4 @@ public class AmmunitionSuit {
         this.count = count;
     }
 
-    @Override
-    public String toString() {
-        return "AmmunitionSuit{" +
-                "id=" + id +
-                ", suit=" + suit.getModel() +
-                ", ammunition=" + ammunition.getName() +
-                ", count=" + count +
-                '}';
-    }
 }

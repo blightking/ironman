@@ -10,4 +10,6 @@ public interface BaseGenericService<T> {
     List<T> findAll();
 
     void deleteById(Long id);
+
+    T update(T data);
 }

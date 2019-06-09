@@ -1,35 +1,32 @@
 package guru.springframework.ironman.service.impl;
 
-import guru.springframework.ironman.domain.AmmunitionSuit;
 import guru.springframework.ironman.domain.Suit;
+import guru.springframework.ironman.domain.repo.SuitRepository;
 import guru.springframework.ironman.exceptions.NotFoundException;
-import guru.springframework.ironman.repo.AmmunitionRepository;
-import guru.springframework.ironman.repo.AmmunitionSuitRepository;
-import guru.springframework.ironman.repo.SuitRepository;
 import guru.springframework.ironman.service.SuitService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class SuitServiceImpl implements SuitService {
 
-    private final SuitRepository suitRepository;
-    private final AmmunitionSuitRepository ammunitionSuitRepository;
-
-    public SuitServiceImpl(SuitRepository suitRepository, AmmunitionSuitRepository ammunitionSuitRepository) {
-        this.suitRepository = suitRepository;
-        this.ammunitionSuitRepository = ammunitionSuitRepository;
-    }
+    //    private final SuitRepository suitRepository;
+//
+//    public SuitServiceImpl(SuitRepository suitRepository) {
+//        this.suitRepository = suitRepository;
+//    }
+    @Autowired
+    private SuitRepository suitRepository;
 
     @Override
     public Suit getDataById(Long id) {
-        Optional<Suit> suitOptional = suitRepository.findById(id);
-        if (!suitOptional.isPresent()) {
+        Suit suit = suitRepository.getSuitById(id);
+        if (suit == null) {
             throw new NotFoundException("Suit not found");
         }
-        return suitOptional.get();
+        return suit;
     }
 
     @Override
@@ -39,7 +36,7 @@ public class SuitServiceImpl implements SuitService {
 
     @Override
     public List<Suit> findAll() {
-        return (List<Suit>) suitRepository.findAll();
+        return suitRepository.getAllSuit();
     }
 
     @Override
@@ -48,30 +45,16 @@ public class SuitServiceImpl implements SuitService {
     }
 
     @Override
+    public Suit update(Suit suit) {
+        return suitRepository.update(suit);
+    }
+
+    @Override
     public Suit findSuitByModel(String model) {
-        Suit suit = suitRepository.findByModel(model);
+        Suit suit = suitRepository.getSuitByModel(model);
         if (suit == null) {
             throw new NotFoundException("Suit not found");
         }
         return suit;
     }
-
-    @Override
-    public double percentCompleteSuit(Long suitId) {
-        List<AmmunitionSuit> ammunitionSuitList = ammunitionSuitRepository.findBySuitId(suitId);
-        double percentSum = 0;
-//        double result = 0;
-
-        for (AmmunitionSuit ammunitionSuit : ammunitionSuitList) {
-            if (ammunitionSuit.getCount() <= ammunitionSuit.getAmmunition().getCount()) {
-                percentSum += 100;
-            } else {
-                double percentForAmmo = (ammunitionSuit.getAmmunition().getCount() * 100) / ammunitionSuit.getCount();
-                percentSum += percentForAmmo;
-            }
-        }
-        return (percentSum / (ammunitionSuitList.size() * 100)) * 100;
-    }
-
-
 }

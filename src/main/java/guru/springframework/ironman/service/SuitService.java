@@ -5,6 +5,4 @@ import guru.springframework.ironman.service.asbt.BaseGenericService;
 
 public interface SuitService extends BaseGenericService<Suit> {
     Suit findSuitByModel(String model);
-
-    double percentCompleteSuit(Long suitId);
 }
